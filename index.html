@@ -1,0 +1,50 @@
+<html>
+<header>
+<title>Nusa Tenggara Timur</title>
+<link rel="stylesheet" href="leaflet/leaflet.css"/>
+<script src="leaflet/leaflet.js"></script>
+<script src="geojson/propinsi.geojson"></script>
+<script src="geojson/kabupaten.geojson"></script>
+</header>
+<body>
+<div id="propinsi" style="width: 900px; height: 580px;"></div>
+<script>
+// Membuat data peta
+var datapropinsi = {
+center : [-9.564962, 119.452475],
+zoom : 10
+}
+// Membuat objek peta
+var map = new L.map('propinsi', datapropinsi);
+map.on('click', function(e) {
+alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng)
+});
+// Membuat layer
+var layer = new
+L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+// Menambahkan layer ke peta
+map.addLayer(layer);
+
+var kabupatenStyle = {
+"color": "#ff7800",
+"weight": 5,
+"opacity": 0.65
+};
+
+L.geoJson(propinsi).addTo(map);
+L.geoJson(kabupaten, kabupatenStyle).addTo(map);
+
+var markerOptions = {
+title: "Kabupaten sumaba barat",
+clickable: true,
+draggable: true
+}
+// Creating a marker
+var marker = L.marker([-9.564962, 119.452475], markerOptions);
+marker.on('click', function(e) { window.location = "kabupaten.html";});
+
+// Adding marker to the map
+marker.addTo(map);
+</script>
+</body>
+</html>

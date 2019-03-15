@@ -1,0 +1,29 @@
+<html>
+<header>
+<title>Desa dokakaka</title>
+<link rel="stylesheet" href="leaflet/leaflet.css"/>
+<script src="leaflet/leaflet.js"></script>
+<script src="geojson/desa.geojson"></script>
+</header>
+<body>
+<div id="desa" style="width: 900px; height: 580px;"></div>
+<script>
+// Membuat data peta
+var datadesa = {
+center : [-9.564962, 119.452475],
+zoom : 13
+}
+// Membuat objek peta
+var map = new L.map('desa', datadesa);
+map.on('click', function(e) {
+	alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng)
+});
+// Membuat layer
+var layer = new
+L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+// Menambahkan layer ke peta
+map.addLayer(layer);
+L.geoJson(desa).addTo(map);
+</script>
+</body>
+</html>

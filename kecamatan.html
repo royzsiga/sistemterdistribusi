@@ -1,0 +1,50 @@
+<html>
+<header>
+<title>Kecamatan loli</title>
+<link rel="stylesheet" href="leaflet/leaflet.css"/>
+<script src="leaflet/leaflet.js"></script>
+<script src="geojson/kecamatan.geojson"></script>
+<script src="geojson/desa.geojson"></script>
+</header>
+<body>
+<div id="kecamatan" style="width: 900px; height: 580px;"></div>
+<script>
+// Membuat data peta
+var datakecamatan = {
+center : [-9.564962, 119.452475],
+zoom : 13
+}
+// Membuat objek peta
+var map = new L.map('kecamatan', datakecamatan);
+map.on('click', function(e) {
+alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng)
+});
+// Membuat layer
+var layer = new
+L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+// Menambahkan layer ke peta
+map.addLayer(layer);
+
+var desaStyle = {
+"color": "#ff7800",
+"weight": 5,
+"opacity": 0.65
+};
+
+L.geoJson(kecamatan).addTo(map);
+L.geoJson(desa, desaStyle).addTo(map);
+
+var markerOptions = {
+title: "Desa Dokakaka",
+clickable: true,
+draggable: true
+}
+// Creating a marker
+var marker = L.marker([-9.564962, 119.452475], markerOptions);
+marker.on('click', function(e) { window.location = "desa.html";});
+
+// Adding marker to the map
+marker.addTo(map);
+</script>
+</body>
+</html>
